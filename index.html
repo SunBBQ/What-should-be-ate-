@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.acwing.com/static/jquery/js/jquery-3.3.1.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>今天吃什么？</title>
+    <style>
+      * {
+        padding: 0px;
+        margin: 0px;
+        background-color: #414141;
+      }
+      #container {
+        width: 500px;
+        height: 500px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+      button {
+        width: 150px;
+        height: 50px;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%);
+        bottom: 40%;
+        box-shadow: 0 0 10px #fff;
+        outline: none;
+        background-color: grey;
+        font-size: 23px;
+        color: lightgray;
+      }
+      #id {
+        font-size: 20px;
+        color: white;
+      }
+      h1,
+      #name {
+        font-size: 50px;
+        text-shadow: 0 0 10px #dfd8d8;
+        text-align: center;
+        background-image: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: ff 0.9s linear infinite;
+      }
+      #name {
+        margin-top: 10px;
+      }
+      @keyframes ff {
+        to {
+          filter: hue-rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <h1>今天吃什么?</h1>
+      <p id="name"></p>
+      <button>stop</button>
+    </div>
+  </body>
+
+  <script>
+    let $name = $("#name");
+    let $btn = $("button");
+    let data = [
+      "冒烤鸭",
+      "黄焖鸡",
+      "麻辣香锅",
+      "口水鸡",
+      "兰州拉面",
+      "油泼面",
+      "烤鸭饭",
+      "鸡公煲",
+      "咸肉菜饭",
+      "滑蛋饭",
+      "豆花鸡",
+      "麻辣烫",
+      "椒麻鸡丝面",
+      "小龙虾拌面",
+    ];
+
+    function getRandomName(min, max) {
+      let n = Math.floor(Math.random() * (max - min));
+      let str = data[n];
+      console.log(n, str);
+      $name.html(str);
+    }
+    let intervalId = setInterval(() => {
+      getRandomName(0, data.length);
+    }, 50);
+
+    let flag = false;
+    $btn.on("click", function () {
+      if (flag === false) {
+        clearInterval(intervalId);
+        $btn.html("start");
+        flag = true;
+      } else {
+        intervalId = setInterval(() => {
+          getRandomName(0, data.length);
+        }, 50);
+        $btn.html("stop");
+        flag = false;
+      }
+    });
+  </script>
+</html>
